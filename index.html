@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANKA - Movie & TV Show Recommendations</title>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-film"></i>
+                <span>ANKAmovies</span>
+            </a>
+
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search movies, shows, actors...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" id="watchlist-link" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Carousel (will be dynamic) -->
+        <section class="hero">
+            <div class="carousel-container">
+                <div class="carousel" id="trending-carousel">
+                    <!-- Dynamic content from JS -->
+                </div>
+                <button class="carousel-btn prev" aria-label="Previous slide">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" aria-label="Next slide">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots"></div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filters">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <select id="genre-filter" class="filter-select">
+                        <option value="">All Genres</option>
+                        <!-- Genres will be populated by JS -->
+                    </select>
+
+                    <select id="year-filter" class="filter-select">
+                        <option value="">All Years</option>
+                        <!-- Years will be populated by JS -->
+                    </select>
+
+                    <select id="type-filter" class="filter-select">
+                        <option value="all">Movies & TV</option>
+                        <option value="movie">Movies Only</option>
+                        <option value="tv">TV Shows Only</option>
+                    </select>
+                </div>
+
+                <div class="sort-group">
+                    <select id="sort-by" class="filter-select">
+                        <option value="popularity.desc">Most Popular</option>
+                        <option value="vote_average.desc">Top Rated</option>
+                        <option value="release_date.desc">Newest</option>
+                        <option value="title.asc">A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <section class="content-grid">
+            <h2 class="section-title">Popular Now</h2>
+            <div class="grid" id="movies-grid">
+                <!-- Dynamic content from JS -->
+                <div class="skeleton-card">
+                    <div class="skeleton-poster"></div>
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-rating"></div>
+                </div>
+                <!-- Repeat skeleton cards 8-12 times -->
+            </div>
+        </section>
+
+        <!-- Watchlist Preview -->
+        <section class="watchlist-preview" id="watchlist-section">
+            <div class="section-header">
+                <h2 class="section-title">Your Watchlist</h2>
+                <a href="#" class="view-all" id="view-watchlist">View All</a>
+            </div>
+            <div class="grid" id="watchlist-grid">
+                <!-- Dynamic content from watchlist.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-film"></i>
+                <span>ANKAmovies</span>
+            </div>
+            <p class="footer-text">Discover your next favorite movie or show</p>
+            <p class="api-attribution">Powered by TMDB & Watchmode API</p>
+            <p class="copyright">© 2026 ANKAmovies. </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/tmdb-api.js" type="module"></script>
+    <script src="scripts/ui.js" type="module"></script>
+    <script src="scripts/watchlist.js" type="module"></script>
+    <script src="./scripts/app.js" type="module"></script>
+</body>
+
+</html>

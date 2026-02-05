@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details - ANKAmovies</title>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-film"></i>
+                <span>ANKAmovies</span>
+            </a>
+
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search movies, shows, actors...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#" id="watchlist-link" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Loading State -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading movie details...</p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="details-container" style="display: none;">
+        <!-- Backdrop Hero -->
+        <section class="detail-hero" id="detail-hero">
+            <!-- Dynamic backdrop image -->
+        </section>
+
+        <!-- Movie Details -->
+        <section class="detail-content">
+            <div class="detail-container">
+                <!-- Poster and Actions -->
+                <div class="detail-sidebar">
+                    <img id="detail-poster" class="detail-poster" src="" alt="Movie Poster">
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="add-to-watchlist">
+                            <i class="fas fa-plus"></i> Add to Watchlist
+                        </button>
+                        <button class="btn btn-secondary" id="watch-trailer">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </button>
+                    </div>
+
+                    <!-- Streaming Availability -->
+                    <div class="streaming-section">
+                        <h3>Available On</h3>
+                        <div class="streaming-services" id="streaming-services">
+                            <!-- Dynamic from Watchmode API -->
+                        </div>
+                        <p class="streaming-note" id="streaming-note"></p>
+                    </div>
+                </div>
+
+                <!-- Text Details -->
+                <div class="detail-main">
+                    <div class="detail-header">
+                        <h1 id="detail-title"></h1>
+                        <div class="detail-meta">
+                            <span id="detail-year"></span>
+                            <span class="dot">•</span>
+                            <span id="detail-runtime"></span>
+                            <span class="dot">•</span>
+                            <span id="detail-genres"></span>
+                            <span class="dot">•</span>
+                            <span class="rating" id="detail-rating">
+                                <i class="fas fa-star"></i>
+                                <span id="rating-value"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Tagline -->
+                    <p class="tagline" id="tagline"></p>
+
+                    <!-- Overview -->
+                    <div class="overview-section">
+                        <h3>Overview</h3>
+                        <p id="overview"></p>
+                    </div>
+
+                    <!-- Cast -->
+                    <div class="cast-section">
+                        <h3>Cast</h3>
+                        <div class="cast-grid" id="cast-grid">
+                            <!-- Dynamic cast members -->
+                        </div>
+                    </div>
+
+                    <!-- Crew -->
+                    <div class="crew-section">
+                        <h3>Key Crew</h3>
+                        <div class="crew-list" id="crew-list">
+                            <!-- Dynamic crew members -->
+                        </div>
+                    </div>
+
+                    <!-- User Reviews (if implemented) -->
+                    <div class="reviews-section">
+                        <div class="section-header">
+                            <h3>User Reviews</h3>
+                            <button class="btn-text" id="add-review">
+                                <i class="fas fa-edit"></i> Add Review
+                            </button>
+                        </div>
+                        <div class="reviews-container" id="reviews-container">
+                            <!-- Dynamic reviews -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- More Like This -->
+        <section class="recommendations">
+            <h2 class="section-title">More Like This</h2>
+            <div class="grid" id="recommendations-grid">
+                <!-- Dynamic recommendations -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Trailer Modal -->
+    <div class="modal" id="trailer-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-trailer">&times;</button>
+            <div class="video-container" id="video-container">
+                <!-- YouTube iframe will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-film"></i>
+                <span>ANKAmovies</span>
+            </div>
+            <p class="footer-text">Discover your next favorite movie or show</p>
+            <p class="api-attribution">Powered by TMDB & Watchmode API</p>
+            <p class="copyright">© 2026 ANKAmovies.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/tmdb-api.js" type="module"></script>
+    <script src="scripts/watchmode-api.js" type="module"></script>
+    <script src="scripts/ui.js" type="module"></script>
+    <script src="scripts/watchlist.js" type="module"></script>
+    <script src="scripts/details.js" type="module"></script>
+</body>
+
+</html>
