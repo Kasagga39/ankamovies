@@ -1,11 +1,11 @@
 // Main app configuration
 const CONFIG = {
-    TMDB_API_KEY: 'e11c4d81202033837b62fdc66f146610', // You'll get this from https://www.themoviedb.org/settings/api
+    TMDB_API_KEY: 'e11c4d81202033837b62fdc66f146610', 
     TMDB_BASE_URL: 'https://api.themoviedb.org/3',
     IMAGE_BASE_URL: 'https://image.tmdb.org/t/p',
     POSTER_SIZE: 'w500',
     BACKDROP_SIZE: 'w1280',
-    WATCHMODE_API_KEY: '0W5SJMWqcDFRKQdWDl5tifrcxGWOXpaIsQv4lFGO' // Optional for now
+    WATCHMODE_API_KEY: '0W5SJMWqcDFRKQdWDl5tifrcxGWOXpaIsQv4lFGO' 
 };
 
 // State management
