@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: ankamovies
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    routes:
+      - path: /
+        destination: /index.html
+      - path: /*.html
+        destination: /$1.html
+      - path: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_ENV
+        value: production
+    headers:
+      - path: /*
+        rule:
+          - key: Cache-Control
+            value: public, max-age=31536000
+      - path: /index.html
+        rule:
+          - key: Cache-Control
+            value: no-cache
+      - path: /details.html
+        rule:
+          - key: Cache-Control
+            value: no-cache

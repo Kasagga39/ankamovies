@@ -114,8 +114,5 @@ class Watchlist {
     }
 }
 
-// Create singleton instance
-const watchlist = new Watchlist();
-
 // Export for use in other modules
-export default watchlist;
+export default Watchlist;
