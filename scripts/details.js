@@ -17,8 +17,145 @@ function getQueryParams() {
     };
 }
 
+// Mobile Menu Functions
+function setupMobileMenuDetails() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            toggleMobileMenuDetails();
+        });
+    }
+
+    if (mobileMenu) {
+        document.addEventListener('click', (e) => {
+            if (mobileMenuBtn && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobileMenuDetails();
+            }
+        });
+    }
+}
+
+function toggleMobileMenuDetails() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu.classList.contains('open')) {
+        closeMobileMenuDetails();
+    } else {
+        openMobileMenuDetails();
+    }
+}
+
+function openMobileMenuDetails() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu && mobileMenuBtn) {
+        mobileMenu.classList.add('open');
+        mobileMenuBtn.classList.add('active');
+    }
+}
+
+function closeMobileMenuDetails() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu && mobileMenuBtn) {
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.classList.remove('active');
+    }
+}
+
+// Setup search for details page
+function setupSearchDetails() {
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    const mobileSearchBtn = document.getElementById('mobile-search-btn');
+
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+            }
+        });
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
+
+    if (mobileSearchBtn && mobileSearchInput) {
+        mobileSearchBtn.addEventListener('click', () => {
+            const query = mobileSearchInput.value.trim();
+            if (query) {
+                closeMobileMenuDetails();
+                window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+            }
+        });
+        mobileSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = mobileSearchInput.value.trim();
+                if (query) {
+                    closeMobileMenuDetails();
+                    window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
+}
+
+// Setup watchlist link for details page
+function setupWatchlistLinkDetails() {
+    const watchlistLink = document.getElementById('watchlist-link');
+    const mobileWatchlistLink = document.getElementById('mobile-watchlist-link');
+
+    if (watchlistLink) {
+        watchlistLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Open watchlist modal
+            showWatchlistModal();
+        });
+    }
+
+    if (mobileWatchlistLink) {
+        mobileWatchlistLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeMobileMenuDetails();
+            showWatchlistModal();
+        });
+    }
+}
+
+// Show watchlist modal (placeholder function)
+function showWatchlistModal() {
+    // This will be implemented by the watchlist.js module
+    const watchlistModule = import('./watchlist.js');
+    watchlistModule.then(module => {
+        if (module.showWatchlist) {
+            module.showWatchlist();
+        }
+    });
+}
+
 // Initialize details page
 async function initDetailsPage() {
+    // Setup mobile menu
+    setupMobileMenuDetails();
+
+    // Setup search
+    setupSearchDetails();
+
+    // Setup watchlist link
+    setupWatchlistLinkDetails();
+
     const { id, type } = getQueryParams();
 
     if (!id) {

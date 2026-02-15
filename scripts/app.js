@@ -1,11 +1,11 @@
 // Main app configuration
 const CONFIG = {
-    TMDB_API_KEY: 'e11c4d81202033837b62fdc66f146610', 
+    TMDB_API_KEY: 'e11c4d81202033837b62fdc66f146610',
     TMDB_BASE_URL: 'https://api.themoviedb.org/3',
     IMAGE_BASE_URL: 'https://image.tmdb.org/t/p',
     POSTER_SIZE: 'w500',
     BACKDROP_SIZE: 'w1280',
-    WATCHMODE_API_KEY: '0W5SJMWqcDFRKQdWDl5tifrcxGWOXpaIsQv4lFGO' 
+    WATCHMODE_API_KEY: '0W5SJMWqcDFRKQdWDl5tifrcxGWOXpaIsQv4lFGO'
 };
 
 // State management
@@ -60,6 +60,9 @@ async function initApp() {
 
 // Event Listeners Setup
 function setupEventListeners() {
+    // Mobile menu toggle
+    setupMobileMenu();
+
     // Search
     if (DOM.searchBtn) {
         DOM.searchBtn.addEventListener('click', handleSearch);
@@ -68,6 +71,18 @@ function setupEventListeners() {
     if (DOM.searchInput) {
         DOM.searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') handleSearch();
+        });
+    }
+
+    // Mobile search
+    const mobileSearchBtn = document.getElementById('mobile-search-btn');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    if (mobileSearchBtn) {
+        mobileSearchBtn.addEventListener('click', handleMobileSearch);
+    }
+    if (mobileSearchInput) {
+        mobileSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleMobileSearch();
         });
     }
 
@@ -95,6 +110,78 @@ function setupEventListeners() {
             e.preventDefault();
             showWatchlist();
         });
+    }
+
+    // Mobile watchlist link
+    const mobileWatchlistLink = document.getElementById('mobile-watchlist-link');
+    if (mobileWatchlistLink) {
+        mobileWatchlistLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeMobileMenu();
+            showWatchlist();
+        });
+    }
+}
+
+// Mobile Menu Functions
+function setupMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            toggleMobileMenu();
+        });
+    }
+
+    // Close menu when clicking outside
+    if (mobileMenu) {
+        document.addEventListener('click', (e) => {
+            if (mobileMenuBtn && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+    }
+}
+
+function toggleMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+    } else {
+        openMobileMenu();
+    }
+}
+
+function openMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu && mobileMenuBtn) {
+        mobileMenu.classList.add('open');
+        mobileMenuBtn.classList.add('active');
+    }
+}
+
+function closeMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu && mobileMenuBtn) {
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.classList.remove('active');
+    }
+}
+
+// Handle mobile search
+async function handleMobileSearch() {
+    const query = document.getElementById('mobile-search-input').value.trim();
+    if (query) {
+        appState.searchQuery = query;
+        closeMobileMenu();
+        await searchMovies(query);
     }
 }
 

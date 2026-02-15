@@ -33,11 +33,26 @@
                 <a href="#" id="watchlist-link" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
             </div>
 
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-search">
+                <input type="text" id="mobile-search-input" placeholder="Search movies, shows...">
+                <button id="mobile-search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <nav class="mobile-nav">
+                <a href="index.html" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" id="mobile-watchlist-link" class="mobile-nav-link"><i class="fas fa-bookmark"></i>
+                    Watchlist</a>
+            </nav>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main>
