@@ -67,14 +67,58 @@ class TMDBAPI {
     // Get filtered movies/TV
     async getFiltered(filters) {
         const { type, genre, year, sortBy, page = 1 } = filters;
-        const endpoint = `/discover/${type}`;
+
+        // Handle 'all' type by fetching both movies and TV
+        if (type === 'all') {
+            const [movieData, tvData] = await Promise.all([
+                this.fetchDiscoverData('movie', genre, year, sortBy, page),
+                this.fetchDiscoverData('tv', genre, year, sortBy, page)
+            ]);
+
+            // Combine results and sort
+            const combined = [
+                ...movieData.results.map(r => ({ ...r, media_type: 'movie' })),
+                ...tvData.results.map(r => ({ ...r, media_type: 'tv' }))
+            ];
+
+            // Sort combined results
+            combined.sort((a, b) => {
+                if (sortBy === 'popularity.desc') {
+                    return b.popularity - a.popularity;
+                } else if (sortBy === 'vote_average.desc') {
+                    return b.vote_average - a.vote_average;
+                } else if (sortBy === 'release_date.desc') {
+                    const dateA = new Date(a.release_date || a.first_air_date || 0);
+                    const dateB = new Date(b.release_date || b.first_air_date || 0);
+                    return dateB - dateA;
+                } else if (sortBy === 'title.asc') {
+                    const titleA = (a.title || a.name || '').toLowerCase();
+                    const titleB = (b.title || b.name || '').toLowerCase();
+                    return titleA.localeCompare(titleB);
+                }
+                return 0;
+            });
+
+            return {
+                results: combined.slice(0, 20),
+                total_pages: Math.max(movieData.total_pages, tvData.total_pages),
+                page: page
+            };
+        }
+
+        return await this.fetchDiscoverData(type, genre, year, sortBy, page);
+    }
+
+    // Helper method to fetch discover data
+    async fetchDiscoverData(mediaType, genre, year, sortBy, page = 1) {
+        const endpoint = `/discover/${mediaType}`;
 
         const params = {
             sort_by: sortBy,
             page,
-            with_genres: genre,
-            primary_release_year: type === 'movie' ? year : undefined,
-            first_air_date_year: type === 'tv' ? year : undefined,
+            with_genres: genre || undefined,
+            primary_release_year: mediaType === 'movie' && year ? year : undefined,
+            first_air_date_year: mediaType === 'tv' && year ? year : undefined,
             'vote_count.gte': 100 // Ensure some minimum votes for quality
         };
 
